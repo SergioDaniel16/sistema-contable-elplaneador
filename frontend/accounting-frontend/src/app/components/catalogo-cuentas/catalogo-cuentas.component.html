@@ -1,0 +1,90 @@
+<div class="page-container">
+  <header class="page-header">
+    <h2>Catálogo de Cuentas</h2>
+    <button routerLink="/dashboard" class="btn-back">← Volver</button>
+  </header>
+
+  <div class="content">
+    <!-- Formulario -->
+    <div class="form-card">
+      <h3>{{ modoEdicion ? 'Editar Cuenta' : 'Nueva Cuenta' }}</h3>
+      <form (ngSubmit)="guardarCuenta()" #cuentaForm="ngForm">
+        <div class="form-group">
+          <label>Código:</label>
+          <input type="text" [(ngModel)]="cuenta.codigo" name="codigo" required 
+                 [disabled]="modoEdicion" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Nombre:</label>
+          <input type="text" [(ngModel)]="cuenta.nombre" name="nombre" required 
+                 class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Tipo:</label>
+          <select [(ngModel)]="cuenta.tipo" name="tipo" required class="form-control">
+            <option value="">Seleccione...</option>
+            <option value="ACTIVO">Activo</option>
+            <option value="PASIVO">Pasivo</option>
+            <option value="CAPITAL">Capital</option>
+            <option value="INGRESO">Ingreso</option>
+            <option value="GASTO">Gasto</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Naturaleza:</label>
+          <select [(ngModel)]="cuenta.naturaleza" name="naturaleza" required class="form-control">
+            <option value="">Seleccione...</option>
+            <option value="DEUDORA">Deudora</option>
+            <option value="ACREEDORA">Acreedora</option>
+          </select>
+        </div>
+
+        <div *ngIf="mensaje" [class]="mensajeClase">{{ mensaje }}</div>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="!cuentaForm.form.valid" class="btn-primary">
+            {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+          </button>
+          <button type="button" (click)="cancelar()" class="btn-secondary">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Listado -->
+    <div class="table-card">
+      <h3>Cuentas Registradas</h3>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Naturaleza</th>
+              <th>Servidor</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of cuentas">
+              <td>{{ c.codigo }}</td>
+              <td>{{ c.nombre }}</td>
+              <td>{{ c.tipo }}</td>
+              <td>{{ c.naturaleza }}</td>
+              <td>{{ c.serverIp }}</td>
+              <td>
+                <button (click)="editar(c)" class="btn-edit">Editar</button>
+                <button (click)="eliminar(c.id!)" class="btn-delete">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

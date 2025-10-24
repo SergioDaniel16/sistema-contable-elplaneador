@@ -1,0 +1,205 @@
+.page-container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 20px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-header h2 {
+  color: #333;
+  margin: 0;
+}
+
+.btn-back {
+  padding: 10px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-back:hover {
+  background: #5568d3;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.estado-card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.estado-card h3 {
+  margin-top: 0;
+  color: #333;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #667eea;
+}
+
+.balance-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 15px;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.line-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.line-item.total {
+  background: #e9ecef;
+  font-weight: bold;
+  font-size: 16px;
+  border: 2px solid #667eea;
+}
+
+.line-item.ingreso {
+  background: #d4edda;
+  border-left: 4px solid #28a745;
+}
+
+.line-item.gasto {
+  background: #f8d7da;
+  border-left: 4px solid #dc3545;
+}
+
+.line-item.resultado {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.line-item.utilidad {
+  background: #d4edda;
+  border: 2px solid #28a745;
+  color: #155724;
+}
+
+.line-item.perdida {
+  background: #f8d7da;
+  border: 2px solid #dc3545;
+  color: #721c24;
+}
+
+.amount {
+  font-family: monospace;
+  font-size: 15px;
+}
+
+.separator {
+  height: 2px;
+  background: #dee2e6;
+  margin: 15px 0;
+}
+
+.ecuacion-contable {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.ecuacion-contable.balanceado {
+  background: #d4edda;
+  border: 2px solid #28a745;
+}
+
+.ecuacion-contable.desbalanceado {
+  background: #f8d7da;
+  border: 2px solid #dc3545;
+}
+
+.ecuacion-text {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.ecuacion-resultado {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: monospace;
+}
+
+.ecuacion-status {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.resultado-section {
+  margin-bottom: 30px;
+}
+
+.resultado-resumen {
+  padding: 25px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.resultado-resumen.utilidad-bg {
+  background: #d4edda;
+  border: 2px solid #28a745;
+}
+
+.resultado-resumen.perdida-bg {
+  background: #f8d7da;
+  border: 2px solid #dc3545;
+}
+
+.resumen-icon {
+  font-size: 48px;
+}
+
+.resumen-text {
+  flex: 1;
+}
+
+.resumen-text strong {
+  font-size: 18px;
+  color: #333;
+}
+
+.resumen-amount {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 5px;
+  font-family: monospace;
+}
+
+@media (max-width: 968px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}

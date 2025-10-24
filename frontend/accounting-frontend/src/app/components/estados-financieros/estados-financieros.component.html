@@ -1,0 +1,83 @@
+<div class="page-container">
+  <header class="page-header">
+    <h2>Estados Financieros</h2>
+    <button routerLink="/dashboard" class="btn-back">← Volver</button>
+  </header>
+
+  <div class="content">
+    <!-- Balance General -->
+    <div class="estado-card">
+      <h3>Balance General</h3>
+      <div class="balance-section">
+        <div class="section-title">ACTIVOS</div>
+        <div class="line-item total">
+          <span>Total Activos</span>
+          <span class="amount">Q {{ balanceGeneral?.totalActivos | number:'1.2-2' }}</span>
+        </div>
+      </div>
+
+      <div class="balance-section">
+        <div class="section-title">PASIVOS Y CAPITAL</div>
+        <div class="line-item">
+          <span>Total Pasivos</span>
+          <span class="amount">Q {{ balanceGeneral?.totalPasivos | number:'1.2-2' }}</span>
+        </div>
+        <div class="line-item">
+          <span>Total Capital</span>
+          <span class="amount">Q {{ balanceGeneral?.totalCapital | number:'1.2-2' }}</span>
+        </div>
+        <div class="line-item total">
+          <span>Total Pasivos + Capital</span>
+          <span class="amount">Q {{ balanceGeneral?.totalPasivoCapital | number:'1.2-2' }}</span>
+        </div>
+      </div>
+
+      <div class="ecuacion-contable" [class.balanceado]="balanceGeneral?.balanceado" 
+           [class.desbalanceado]="!balanceGeneral?.balanceado">
+        <div class="ecuacion-text">
+          <strong>Ecuación Contable:</strong>
+          Activos = Pasivos + Capital
+        </div>
+        <div class="ecuacion-resultado">
+          Q {{ balanceGeneral?.totalActivos | number:'1.2-2' }} = 
+          Q {{ balanceGeneral?.totalPasivoCapital | number:'1.2-2' }}
+        </div>
+        <div class="ecuacion-status">
+          {{ balanceGeneral?.balanceado ? '✓ Balance cuadrado' : '⚠ Balance NO cuadrado' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Estado de Resultados -->
+    <div class="estado-card">
+      <h3>Estado de Resultados</h3>
+      <div class="resultado-section">
+        <div class="line-item ingreso">
+          <span>Ingresos</span>
+          <span class="amount">Q {{ estadoResultados?.totalIngresos | number:'1.2-2' }}</span>
+        </div>
+        <div class="line-item gasto">
+          <span>(-) Gastos</span>
+          <span class="amount">Q {{ estadoResultados?.totalGastos | number:'1.2-2' }}</span>
+        </div>
+        <div class="separator"></div>
+        <div class="line-item resultado" [class.utilidad]="estadoResultados?.tieneUtilidad" 
+             [class.perdida]="!estadoResultados?.tieneUtilidad">
+          <span>{{ estadoResultados?.tieneUtilidad ? 'Utilidad del Período' : 'Pérdida del Período' }}</span>
+          <span class="amount">Q {{ estadoResultados?.utilidad | number:'1.2-2' }}</span>
+        </div>
+      </div>
+
+      <div class="resultado-resumen" [class.utilidad-bg]="estadoResultados?.tieneUtilidad" 
+           [class.perdida-bg]="!estadoResultados?.tieneUtilidad">
+        <div class="resumen-icon">
+          {{ estadoResultados?.tieneUtilidad ? '📈' : '📉' }}
+        </div>
+        <div class="resumen-text">
+          <strong>{{ estadoResultados?.tieneUtilidad ? 'Utilidad' : 'Pérdida' }}</strong>
+          <div class="resumen-amount">Q {{ estadoResultados?.utilidad | number:'1.2-2' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

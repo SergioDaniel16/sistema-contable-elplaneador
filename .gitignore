@@ -1,0 +1,25 @@
+# Backend
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+
+# Frontend
+frontend/accounting-frontend/node_modules/
+frontend/accounting-frontend/dist/
+frontend/accounting-frontend/.angular/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.tar.gz

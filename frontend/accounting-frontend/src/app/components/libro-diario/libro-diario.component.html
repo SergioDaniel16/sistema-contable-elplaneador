@@ -1,0 +1,108 @@
+<div class="page-container">
+  <header class="page-header">
+    <h2>Libro Diario</h2>
+    <button routerLink="/dashboard" class="btn-back">← Volver</button>
+  </header>
+
+  <div class="content">
+    <!-- Formulario de registro -->
+    <div class="form-card">
+      <h3>Registrar Asiento Contable</h3>
+      <form (ngSubmit)="registrarAsiento()">
+        <div class="form-group">
+          <label>Fecha:</label>
+          <input type="date" [(ngModel)]="asiento.fecha" name="fecha" required 
+                 class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Descripción:</label>
+          <textarea [(ngModel)]="asiento.descripcion" name="descripcion" required 
+                    class="form-control" rows="3"></textarea>
+        </div>
+
+        <h4>Asientos (Partida Doble)</h4>
+        
+        <div *ngFor="let detalle of asiento.asientos; let i = index" class="asiento-row">
+          <div class="asiento-fields">
+            <select [(ngModel)]="detalle.cuentaId" [name]="'cuenta-'+i" required 
+                    class="form-control">
+              <option value="">Seleccione cuenta...</option>
+              <option *ngFor="let c of cuentas" [value]="c.id">
+                {{ c.codigo }} - {{ c.nombre }}
+              </option>
+            </select>
+
+            <input type="number" [(ngModel)]="detalle.debe" [name]="'debe-'+i" 
+                   placeholder="Debe" class="form-control" step="0.01" min="0">
+
+            <input type="number" [(ngModel)]="detalle.haber" [name]="'haber-'+i" 
+                   placeholder="Haber" class="form-control" step="0.01" min="0">
+
+            <button type="button" (click)="eliminarAsiento(i)" class="btn-remove">×</button>
+          </div>
+        </div>
+
+        <button type="button" (click)="agregarAsiento()" class="btn-add">
+          + Agregar línea
+        </button>
+
+        <div class="totales">
+          <div class="total-item">
+            <strong>Total Debe:</strong> Q {{ calcularTotalDebe() | number:'1.2-2' }}
+          </div>
+          <div class="total-item">
+            <strong>Total Haber:</strong> Q {{ calcularTotalHaber() | number:'1.2-2' }}
+          </div>
+          <div class="total-item" [class.balanced]="estBalanceado()" [class.unbalanced]="!estBalanceado()">
+            <strong>Diferencia:</strong> Q {{ calcularDiferencia() | number:'1.2-2' }}
+          </div>
+        </div>
+
+        <div *ngIf="mensaje" [class]="mensajeClase">{{ mensaje }}</div>
+
+        <button type="submit" [disabled]="!estBalanceado()" class="btn-primary">
+          Registrar Asiento
+        </button>
+      </form>
+    </div>
+
+    <!-- Listado de asientos -->
+    <div class="table-card">
+      <h3>Asientos Registrados</h3>
+      <div class="table-responsive">
+        <div *ngFor="let registro of registros" class="asiento-card">
+          <div class="asiento-header">
+            <span><strong>Fecha:</strong> {{ registro.fecha }}</span>
+            <span><strong>Servidor:</strong> {{ registro.serverIp }}</span>
+          </div>
+          <p><strong>Descripción:</strong> {{ registro.descripcion }}</p>
+          
+          <table class="asiento-table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Cuenta</th>
+                <th>Debe</th>
+                <th>Haber</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let det of registro.asientos">
+                <td>{{ det.cuenta.codigo }}</td>
+                <td>{{ det.cuenta.nombre }}</td>
+                <td>{{ det.debe > 0 ? 'Q ' + (det.debe | number:'1.2-2') : '' }}</td>
+                <td>{{ det.haber > 0 ? 'Q ' + (det.haber | number:'1.2-2') : '' }}</td>
+              </tr>
+              <tr class="total-row">
+                <td colspan="2"><strong>TOTALES</strong></td>
+                <td><strong>Q {{ calcularTotalDebeRegistro(registro) | number:'1.2-2' }}</strong></td>
+                <td><strong>Q {{ calcularTotalHaberRegistro(registro) | number:'1.2-2' }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

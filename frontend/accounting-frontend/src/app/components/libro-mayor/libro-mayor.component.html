@@ -1,0 +1,80 @@
+<div class="page-container">
+  <header class="page-header">
+    <h2>Libro Mayor y Balance de Comprobación</h2>
+    <button routerLink="/dashboard" class="btn-back">← Volver</button>
+  </header>
+
+  <div class="content">
+    <!-- Balance de Comprobación -->
+    <div class="balance-card">
+      <h3>Balance de Comprobación</h3>
+      <div class="balance-grid">
+        <div class="balance-item deudor">
+          <span class="label">Total Deudor</span>
+          <span class="amount">Q {{ balance?.totalDeudor | number:'1.2-2' }}</span>
+        </div>
+        <div class="balance-item acreedor">
+          <span class="label">Total Acreedor</span>
+          <span class="amount">Q {{ balance?.totalAcreedor | number:'1.2-2' }}</span>
+        </div>
+        <div class="balance-item" [class.balanced]="esBalanceado()" [class.unbalanced]="!esBalanceado()">
+          <span class="label">Diferencia</span>
+          <span class="amount">Q {{ balance?.diferencia | number:'1.2-2' }}</span>
+        </div>
+      </div>
+      <div *ngIf="esBalanceado()" class="mensaje-balance success">
+        ✓ El balance está cuadrado
+      </div>
+      <div *ngIf="!esBalanceado()" class="mensaje-balance error">
+        ⚠ El balance NO está cuadrado
+      </div>
+    </div>
+
+    <!-- Libro Mayor -->
+    <div class="mayor-card">
+      <h3>Libro Mayor - Saldos por Cuenta</h3>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Cuenta</th>
+              <th>Tipo</th>
+              <th>Total Debe</th>
+              <th>Total Haber</th>
+              <th>Saldo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of libroMayor">
+              <td>{{ item.cuenta.codigo }}</td>
+              <td>{{ item.cuenta.nombre }}</td>
+              <td>
+                <span class="badge" [class.badge-activo]="item.cuenta.tipo === 'ACTIVO'"
+                      [class.badge-pasivo]="item.cuenta.tipo === 'PASIVO'"
+                      [class.badge-capital]="item.cuenta.tipo === 'CAPITAL'"
+                      [class.badge-ingreso]="item.cuenta.tipo === 'INGRESO'"
+                      [class.badge-gasto]="item.cuenta.tipo === 'GASTO'">
+                  {{ item.cuenta.tipo }}
+                </span>
+              </td>
+              <td class="amount">Q {{ item.totalDebe | number:'1.2-2' }}</td>
+              <td class="amount">Q {{ item.totalHaber | number:'1.2-2' }}</td>
+              <td class="amount saldo" [class.positivo]="item.saldo > 0" [class.negativo]="item.saldo < 0">
+                Q {{ item.saldo | number:'1.2-2' }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="3"><strong>TOTALES</strong></td>
+              <td class="amount"><strong>Q {{ calcularTotalDebe() | number:'1.2-2' }}</strong></td>
+              <td class="amount"><strong>Q {{ calcularTotalHaber() | number:'1.2-2' }}</strong></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
