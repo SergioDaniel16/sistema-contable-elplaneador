@@ -18,13 +18,8 @@ public class CatalogoCuentasController {
     private CatalogoCuentasService catalogoCuentasService;
     
     @PostMapping
-    public ResponseEntity<?> crearCuenta(@RequestBody CatalogoCuentasDTO dto) {
-        try {
-            CatalogoCuentas cuenta = catalogoCuentasService.crearCuenta(dto);
-            return ResponseEntity.ok(cuenta);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<CatalogoCuentas> crear(@RequestBody CatalogoCuentasDTO dto) {
+        return ResponseEntity.ok(catalogoCuentasService.crear(dto));
     }
     
     @GetMapping
@@ -34,36 +29,19 @@ public class CatalogoCuentasController {
     
     @GetMapping("/activas")
     public ResponseEntity<List<CatalogoCuentas>> obtenerActivas() {
-        return ResponseEntity.ok(catalogoCuentasService.obtenerTodasActivas());
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<?> obtenerPorId(@PathVariable Long id) {
-        try {
-            CatalogoCuentas cuenta = catalogoCuentasService.obtenerPorId(id);
-            return ResponseEntity.ok(cuenta);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        return ResponseEntity.ok(catalogoCuentasService.obtenerActivas());
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarCuenta(@PathVariable Long id, @RequestBody CatalogoCuentasDTO dto) {
-        try {
-            CatalogoCuentas cuenta = catalogoCuentasService.actualizarCuenta(id, dto);
-            return ResponseEntity.ok(cuenta);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<CatalogoCuentas> actualizar(
+            @PathVariable Long id, 
+            @RequestBody CatalogoCuentasDTO dto) {
+        return ResponseEntity.ok(catalogoCuentasService.actualizar(id, dto));
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarCuenta(@PathVariable Long id) {
-        try {
-            catalogoCuentasService.eliminarCuenta(id);
-            return ResponseEntity.ok("Cuenta desactivada correctamente");
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        catalogoCuentasService.eliminar(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -22,7 +22,7 @@ public class CatalogoCuentasService {
     
     public List<CatalogoCuentas> obtenerActivas() {
         bitacoraService.registrar("CONSULTA", "catalogo_cuentas", null, "Consulta de cuentas activas", "admin");
-        return catalogoCuentasRepository.findByActivaTrue();
+        return catalogoCuentasRepository.findByActivaTrueOrderByCodigo();
     }
     
     public List<CatalogoCuentas> obtenerTodas() {
