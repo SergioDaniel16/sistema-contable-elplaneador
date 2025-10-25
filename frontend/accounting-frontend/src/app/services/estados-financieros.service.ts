@@ -7,7 +7,7 @@ import { BalanceGeneral, EstadoResultados } from '../models/estados-financieros.
   providedIn: 'root'
 })
 export class EstadosFinancierosService {
-  private apiUrl = 'http://18.220.164.228:8080/api/estados-financieros';
+  private apiUrl = 'http://18.119.103.37/api/estados-financieros';
 
   constructor(private http: HttpClient) { }
 

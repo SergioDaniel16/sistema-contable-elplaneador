@@ -7,7 +7,7 @@ import { LibroDiario, LibroDiarioDTO } from '../models/libro-diario.model';
   providedIn: 'root'
 })
 export class LibroDiarioService {
-  private apiUrl = 'http://18.220.164.228:8080/api/libro-diario';
+  private apiUrl = 'http://18.119.103.37/api/libro-diario';
 
   constructor(private http: HttpClient) { }
 

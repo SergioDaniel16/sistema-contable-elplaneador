@@ -7,7 +7,7 @@ import { CatalogoCuentas, CatalogoCuentasDTO } from '../models/catalogo-cuentas.
   providedIn: 'root'
 })
 export class CatalogoCuentasService {
-  private apiUrl = 'http://18.220.164.228:8080/api/catalogo';
+  private apiUrl = 'http://18.119.103.37/api/catalogo';
 
   constructor(private http: HttpClient) { }
 

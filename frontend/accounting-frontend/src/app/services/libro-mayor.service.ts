@@ -7,7 +7,7 @@ import { LibroMayor, BalanceComprobacion } from '../models/libro-mayor.model';
   providedIn: 'root'
 })
 export class LibroMayorService {
-  private apiUrl = 'http://18.220.164.228:8080/api/libro-mayor';
+  private apiUrl = 'http://18.119.103.37/api/libro-mayor';
 
   constructor(private http: HttpClient) { }
 

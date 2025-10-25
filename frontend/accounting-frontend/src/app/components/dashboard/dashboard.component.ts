@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,8 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
   serverInfo: string = 'Cargando...';
 
+  constructor(private authService: AuthService) {}
+
   ngOnInit(): void {
-    // Aquí podrías obtener info del servidor si lo necesitas
-    this.serverInfo = 'Nodo 1 - 18.220.164.228';
+    // Hacer petición para obtener el servidor actual
+    this.authService.login({username: 'admin', password: '1234admin1234'}).subscribe({
+      next: (response) => {
+        this.serverInfo = 'Servidor: ' + response.serverIp;
+      },
+      error: () => {
+        this.serverInfo = 'No disponible';
+      }
+    });
   }
 }
